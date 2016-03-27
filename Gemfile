@@ -52,3 +52,5 @@ end
 group :test do
   gem 'capybara', '2.1.0'
 end
+
+gem 'coffee-script-source', '1.8.0'
