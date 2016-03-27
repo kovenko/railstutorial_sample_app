@@ -1,3 +1,5 @@
+# Создание проекта #
+
 ### Генерация проекта без директории test: ###
 
     $ rails new railstutorial_sample_app --skip-test-unit
@@ -5,12 +7,13 @@
 ### Для создания тестов добавим гемы: ###
 
     group :development, :test do
-      gem 'rspec-rails', '2.13.1'
+      gem 'rspec-rails', '~> 3.0'
     end
     group :test do
-      gem 'capybara', '2.1.0'
+      gem 'capybara'
     end
-    bundle install
+    $ bundle install
+    $ rails generate rspec:install
 
 ### Конфигурируем Rails для использования RSpec ###
 
@@ -43,4 +46,55 @@
     $ git init
     $ git add .
     $ git commit -m "Initial commit"
+    $ git remote add origin https://github.com/<username>/railstutorial_sample_app.git
+    $ git push -u origin master
+
+# Статические страницы #
+
+### Генерация контроллера StaticPages ###
+    $ rails generate controller StaticPages home help --no-test-framework
+
+Будет сгенерирован контроллер, представления и добавлены маршруты.
+
+Если вдруг допущена ошибка, можно сделать **откат генерации**
+
+    $ rails destroy controller StaticPages home help --no-test-framework
+
+Если требуется **откатить миграцию**
+
+    $ rake db:rollback
+
+**Опкатить миграции до нужной версии**, как пример к началу
+
+    $ rake db:migrate VERSION=0
+
+Генерация создаст два маршрута
+
+    get "static_pages/home"
+    get "static_pages/help"
+
+Запустим сервер и посмотрим страницу
+
+    $ rails s
+    http://localhost:3000/static_pages/home
+
+Если увидете **ошибку ExecJS**, добавьте гем
+
+    gem 'coffee-script-source', '1.8.0'
+    $ bundle update
+    $ bundle install
+
+* Тестирование *
+
+В начало файла app/spec/spec_helper.rb вставите
+
+    ENV["RAILS_ENV"] ||= 'test'
+    require File.expand_path("../../config/environment", __FILE__)
+    require 'rspec/rails'
+
+Перед последней строкой добавьте
+
+    config.include Capybara::DSL
+
+
 
