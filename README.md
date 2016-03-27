@@ -7,12 +7,13 @@
 ### Для создания тестов добавим гемы: ###
 
     group :development, :test do
-      gem 'rspec-rails', '2.13.1'
+      gem 'rspec-rails', '~> 3.0'
     end
     group :test do
-      gem 'capybara', '2.1.0'
+      gem 'capybara'
     end
-    bundle install
+    $ bundle install
+    $ rails generate rspec:install
 
 ### Конфигурируем Rails для использования RSpec ###
 
@@ -82,6 +83,18 @@
     gem 'coffee-script-source', '1.8.0'
     $ bundle update
     $ bundle install
+
+* Тестирование *
+
+В начало файла app/spec/spec_helper.rb вставите
+
+    ENV["RAILS_ENV"] ||= 'test'
+    require File.expand_path("../../config/environment", __FILE__)
+    require 'rspec/rails'
+
+Перед последней строкой добавьте
+
+    config.include Capybara::DSL
 
 
 
