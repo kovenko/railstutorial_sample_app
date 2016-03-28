@@ -21,4 +21,11 @@ describe "Статическая страница" do
       expect(page).to have_title('About Us')
     end
   end
+  describe "Contact page" do
+    it "должна содержать 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact')
+      expect(page).to have_title('Contact')
+    end
+  end
 end
