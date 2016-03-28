@@ -210,6 +210,16 @@
       sample application.
     </p>
 
+Добавим проверку заголовков в тесты
+
+      describe "Home page" do
+        it "должна содердать 'Sample App'" do
+          visit '/static_pages/home'
+          expect(page).to have_content('Sample App')
+          expect(page).to have_title('Home')
+        end
+      end
+
 ### Объединим изменения с мастер-веткой ###
 
     $ git add .
